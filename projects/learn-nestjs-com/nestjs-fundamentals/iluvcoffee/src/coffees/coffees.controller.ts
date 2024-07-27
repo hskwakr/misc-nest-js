@@ -30,7 +30,6 @@ export class CoffeesController {
     return this.coffeesService.findOne('' + id);
   }
 
-  @HttpCode(HttpStatus.GONE)
   @Post()
   create(@Body() createCoffeeDto: CreateCoffeeDto) {
     console.log(createCoffeeDto instanceof CreateCoffeeDto);
