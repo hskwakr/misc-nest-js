@@ -9,18 +9,20 @@ import appConfig from './config/app.config';
 
 @Module({
   imports: [
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: 'localhost',
+        port: 5432,
+        username: 'postgres',
+        password: 'pass123',
+        database: 'postgres',
+        autoLoadEntities: true,
+        synchronize: true,
+      }),
+    }),
     ConfigModule.forRoot({
       load: [appConfig],
-    }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'pass123',
-      database: 'postgres',
-      autoLoadEntities: true,
-      synchronize: true,
     }),
     CoffeesModule,
     CoffeeRatingModule,
