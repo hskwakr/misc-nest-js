@@ -1,12 +1,34 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CoffeesController } from './coffees/coffees.controller';
-import { CoffeesService } from './coffees/coffees.service';
 import { CoffeesModule } from './coffees/coffees.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
+import { CommonModule } from './common/common.module';
+import appConfig from './config/app.config';
 
 @Module({
-  imports: [CoffeesModule],
+  imports: [
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: 'localhost',
+        port: 5432,
+        username: 'postgres',
+        password: 'pass123',
+        database: 'postgres',
+        autoLoadEntities: true,
+        synchronize: true,
+      }),
+    }),
+    ConfigModule.forRoot({
+      load: [appConfig],
+    }),
+    CoffeesModule,
+    CoffeeRatingModule,
+    CommonModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
