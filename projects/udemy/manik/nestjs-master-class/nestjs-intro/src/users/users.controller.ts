@@ -13,8 +13,8 @@ import {
 export class UsersController {
   @Get('/:id/:optional?')
   getUsers(@Param('id') id: any, @Query('limit') limit: any) {
-    console.log(id);
-    console.log(limit);
+    console.log(typeof id);
+    console.log(typeof limit);
     return 'GET users endpoint';
   }
 
