@@ -1,3 +1,3 @@
 GET http://localhost:3000/users/1323
-?limit=10
-&offset=20
+?limit=0
+&page=20
